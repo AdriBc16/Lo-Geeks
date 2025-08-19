@@ -1,3 +1,7 @@
+import 'package:app_prueba_flutter/help.dart';
+import 'package:app_prueba_flutter/library.dart';
+import 'package:app_prueba_flutter/settings.dart';
+import 'package:app_prueba_flutter/terms_condition.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,12 +14,17 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int selectIndex = 0;
 
-  //final List<Widget> screens = [Home(),Games(),Profile()];
+  final List<Widget> screens = const [];
 
   void onItemTap(int index) {
     setState(() {
       selectIndex = index;
     });
+  }
+
+  void navigateTo(BuildContext context, Widget page) {
+    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
   }
 
   @override
@@ -52,8 +61,7 @@ class HomePageState extends State<HomePage> {
               leading: Icon(Icons.book),
               title: Text("Library"),
               onTap: () {
-                Navigator.pop(context);
-                onItemTap(0);
+                navigateTo(context, const Library());
               },
             ),
 
@@ -61,8 +69,7 @@ class HomePageState extends State<HomePage> {
               leading: Icon(Icons.settings),
               title: Text('Settings'),
               onTap: () {
-                Navigator.pop(context);
-                onItemTap(1);
+                navigateTo(context, const Settings());
               },
             ),
 
@@ -70,8 +77,7 @@ class HomePageState extends State<HomePage> {
               leading: Icon(Icons.description),
               title: Text("Terms and conditions"),
               onTap: () {
-                Navigator.pop(context);
-                onItemTap(2);
+                navigateTo(context, const Terms_conditions());
               },
             ),
 
@@ -79,8 +85,7 @@ class HomePageState extends State<HomePage> {
               leading: Icon(Icons.help),
               title: Text("Help"),
               onTap: () {
-                Navigator.pop(context);
-                onItemTap(2);
+                navigateTo(context, const Help());
               },
             ),
 
