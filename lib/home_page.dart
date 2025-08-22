@@ -31,11 +31,16 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lo-Geeks', style: TextStyle(color: Color(0xFF84525F))),
-        backgroundColor: Colors.white,
+        title: Text(
+          'Nombre de la App',
+          style: TextStyle(color: Color(0xFF97A5EC)),
+        ),
+        backgroundColor: Color(0xFF141F25),
+        iconTheme: IconThemeData(color: Color(0xFF97A5EC)),
       ),
+
       drawer: Drawer(
-        backgroundColor: Color(0xFFFFFCED),
+        backgroundColor: Color(0xFF363C54),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -49,8 +54,11 @@ class HomePageState extends State<HomePage> {
               child: null,
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
+              leading: const Icon(Icons.home, color: Colors.white),
+              title: Text(
+                'Home',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 onItemTap(0);
@@ -58,40 +66,33 @@ class HomePageState extends State<HomePage> {
             ),
 
             ListTile(
-              leading: Icon(Icons.book),
-              title: Text("Library"),
-              onTap: () {
-                navigateTo(context, const Library());
-              },
-            ),
-
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                navigateTo(context, const Settings());
-              },
-            ),
-
-            ListTile(
-              leading: Icon(Icons.description),
-              title: Text("Terms and conditions"),
+              leading: const Icon(Icons.description, color: Colors.white),
+              title: Text(
+                "Terms and conditions",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
               onTap: () {
                 navigateTo(context, const Terms_conditions());
               },
             ),
 
             ListTile(
-              leading: Icon(Icons.help),
-              title: Text("Help"),
+              leading: const Icon(Icons.help, color: Colors.white),
+              title: Text(
+                "Help",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
               onTap: () {
                 navigateTo(context, const Help());
               },
             ),
 
             ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Log out"),
+              leading: const Icon(Icons.logout, color: Colors.white),
+              title: Text(
+                "Log out",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 onItemTap(2);
@@ -103,9 +104,10 @@ class HomePageState extends State<HomePage> {
 
       body: Stack(
         children: [
-          // Imagen de fondo con 30% transparencia
+          Container(color: Color(0xFF141F25)),
+
           Opacity(
-            opacity: 0.3, // 30% visible
+            opacity: 0.1,
             child: Image.asset(
               "assets/images/background.png",
               fit: BoxFit.cover,
@@ -117,11 +119,18 @@ class HomePageState extends State<HomePage> {
       ),
 
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFF141F25),
         currentIndex: selectIndex,
         onTap: onItemTap,
-        items: [
+        selectedItemColor: const Color(
+          0xFFFF5C8D,
+        ), // color de icono y label seleccionado
+        unselectedItemColor: const Color(
+          0xFF97A5EC,
+        ), // color de icono y label NO seleccionado
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.games), label: 'Games'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Library'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
