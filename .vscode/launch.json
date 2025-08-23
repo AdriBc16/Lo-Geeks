@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "juego",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/VISTA/main.dart"
+    },
+    {
+      "name": "juego (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile",
+      "program": "lib/VISTA/main.dart"
+    },
+    {
+      "name": "juego (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "program": "lib/VISTA/main.dart"
+    }
+  ]
+}
