@@ -8,25 +8,22 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Fondo oscuro
           Container(
             width: double.infinity,
             height: double.infinity,
             color: const Color(0xFF141F25),
           ),
 
-          // Imagen de fondo con opacidad
           Opacity(
             opacity: 0.1,
             child: Image.asset(
-              "assets/images/background.png", // 🔹 tu patrón de ciencia
+              "assets/images/background.png",
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
             ),
           ),
 
-          // Contenido centrado
           Center(
             child: Container(
               width: 280,
@@ -38,7 +35,6 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Avatar circular
                   Container(
                     width: 80,
                     height: 80,
@@ -54,7 +50,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  // Texto Login
                   const Text(
                     "Login",
                     style: TextStyle(
@@ -65,7 +60,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  // Campo usuario
                   TextField(
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
@@ -85,7 +79,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-                  // Campo password
                   TextField(
                     obscureText: true,
                     style: const TextStyle(color: Colors.white),
@@ -106,7 +99,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  // Botón login
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFEFB9C8),

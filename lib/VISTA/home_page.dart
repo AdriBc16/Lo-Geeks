@@ -1,8 +1,10 @@
-import 'package:app_prueba_flutter/help.dart';
-import 'package:app_prueba_flutter/library.dart';
-import 'package:app_prueba_flutter/settings.dart';
-import 'package:app_prueba_flutter/terms_condition.dart';
+import 'package:app_prueba_flutter/VISTA/help.dart';
+import 'package:app_prueba_flutter/VISTA/library.dart';
+import 'package:app_prueba_flutter/VISTA/settings.dart';
+import 'package:app_prueba_flutter/VISTA/terms_condition.dart';
 import 'package:flutter/material.dart';
+
+import 'games_home_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +16,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int selectIndex = 0;
 
-  final List<Widget> screens = const [];
+  final List<Widget> screens = const [GamesHomePage(), Library()];
 
   void onItemTap(int index) {
     setState(() {
@@ -31,21 +33,21 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Nombre de la App',
           style: TextStyle(color: Color(0xFF97A5EC)),
         ),
-        backgroundColor: Color(0xFF141F25),
-        iconTheme: IconThemeData(color: Color(0xFF97A5EC)),
+        backgroundColor: const Color(0xFF141F25),
+        iconTheme: const IconThemeData(color: Color(0xFF97A5EC)),
       ),
 
       drawer: Drawer(
-        backgroundColor: Color(0xFF363C54),
+        backgroundColor: const Color(0xFF363C54),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/drawer.png"),
                   fit: BoxFit.cover,
@@ -55,7 +57,7 @@ class HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading: const Icon(Icons.home, color: Colors.white),
-              title: Text(
+              title: const Text(
                 'Home',
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
@@ -67,7 +69,7 @@ class HomePageState extends State<HomePage> {
 
             ListTile(
               leading: const Icon(Icons.description, color: Colors.white),
-              title: Text(
+              title: const Text(
                 "Terms and conditions",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
@@ -78,7 +80,7 @@ class HomePageState extends State<HomePage> {
 
             ListTile(
               leading: const Icon(Icons.help, color: Colors.white),
-              title: Text(
+              title: const Text(
                 "Help",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
@@ -89,7 +91,7 @@ class HomePageState extends State<HomePage> {
 
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.white),
-              title: Text(
+              title: const Text(
                 "Log out",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
@@ -102,32 +104,14 @@ class HomePageState extends State<HomePage> {
         ),
       ),
 
-      body: Stack(
-        children: [
-          Container(color: Color(0xFF141F25)),
-
-          Opacity(
-            opacity: 0.1,
-            child: Image.asset(
-              "assets/images/background.png",
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-          ),
-        ],
-      ),
+      body: screens[selectIndex],
 
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFF141F25),
         currentIndex: selectIndex,
         onTap: onItemTap,
-        selectedItemColor: const Color(
-          0xFFFF5C8D,
-        ), // color de icono y label seleccionado
-        unselectedItemColor: const Color(
-          0xFF97A5EC,
-        ), // color de icono y label NO seleccionado
+        selectedItemColor: const Color(0xFFFF5C8D),
+        unselectedItemColor: const Color(0xFF97A5EC),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Library'),
