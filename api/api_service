@@ -1,0 +1,16 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+
+class ApiService {
+  final String baseUrl = "http://localhost/api/index.php";
+
+  Future<List<dynamic>> getUsuarios() async {
+    final response = await http.get(Uri.parse("$baseUrl?resource=usuario"));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception("Error al obtener usuarios");
+    }
+  }
+}

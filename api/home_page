@@ -1,0 +1,173 @@
+import 'package:app_prueba_flutter/terms_condition.dart';
+import 'package:flutter/material.dart';
+import 'api_service.dart';
+import 'help.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  int selectIndex = 0;
+  final ApiService api = ApiService();
+  late Future<List<dynamic>> usuarios;
+
+  final List<Widget> screens = [];
+
+  @override
+  void initState() {
+    super.initState();
+    usuarios = api.getUsuarios();
+  }
+
+  void onItemTap(int index) {
+    setState(() {
+      selectIndex = index;
+    });
+  }
+
+  void navigateTo(BuildContext context, Widget page) {
+    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'GeekPlayground',
+          style: TextStyle(color: Color(0xFF97A5EC)),
+        ),
+        backgroundColor: const Color(0xFF141F25),
+        iconTheme: const IconThemeData(color: Color(0xFF97A5EC)),
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color(0xFF363C54),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/drawer.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: null,
+            ),
+            ListTile(
+              leading: const Icon(Icons.home, color: Colors.white),
+              title: const Text(
+                'Home',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                onItemTap(0);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.description, color: Colors.white),
+              title: const Text(
+                "Terms and conditions",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              onTap: () {
+                navigateTo(context, const Terms_conditions());
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.help, color: Colors.white),
+              title: const Text(
+                "Help",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              onTap: () {
+                navigateTo(context, const Help());
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.white),
+              title: const Text(
+                "Log out",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                onItemTap(2);
+              },
+            ),
+          ],
+        ),
+      ),
+
+        body: FutureBuilder<List<dynamic>>(
+          future: usuarios,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No hay usuarios'));
+            } else {
+              final data = snapshot.data!;
+              return Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF363C54),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    child: DataTable(
+                      columns: const [
+                        DataColumn(label: Text('Usuario', style: TextStyle(color: Colors.white))),
+                        DataColumn(label: Text('Email', style: TextStyle(color: Colors.white))),
+                      ],
+                      rows: data.map<DataRow>((user) {
+                        return DataRow(
+                          cells: [
+                            DataCell(Text(user['username'], style: const TextStyle(color: Colors.white))),
+                            DataCell(Text(user['email'], style: const TextStyle(color: Colors.white70))),
+                          ],
+                        );
+                      }).toList(),
+                      dataRowColor: MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
+                          return Colors.transparent;
+                        },
+                      ),
+                      headingRowColor: MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
+                          return Colors.transparent;
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+          },
+        ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFF141F25),
+        currentIndex: selectIndex,
+        onTap: onItemTap,
+        selectedItemColor: const Color(0xFFFF5C8D),
+        unselectedItemColor: const Color(0xFF97A5EC),
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Library'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+      ),
+    );
+  }
+}
