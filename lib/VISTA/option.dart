@@ -1,3 +1,5 @@
+import 'package:app_prueba_flutter/VISTA/login.dart';
+import 'package:app_prueba_flutter/VISTA/register.dart';
 import 'package:flutter/material.dart';
 
 class Option extends StatelessWidget {
@@ -35,7 +37,14 @@ class Option extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Login(),
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFE24B8C),
                           padding: const EdgeInsets.symmetric(
@@ -51,10 +60,35 @@ class Option extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+
+                      // ElevatedButton(
+                      //   onPressed: () {},
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor: const Color(0xFFE24B8C),
+                      //     padding: const EdgeInsets.symmetric(
+                      //       horizontal: 22,
+                      //       vertical: 14, //login
+                      //     ),
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //     ),
+                      //   ),
+                      //   child: const Text(
+                      //     "      Login      ",
+                      //     style: TextStyle(color: Colors.white),
+                      //   ),
+                      // ),
                       const SizedBox(width: 16),
 
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Register(),
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF5E8CFF),
                           padding: const EdgeInsets.symmetric(
@@ -66,10 +100,28 @@ class Option extends StatelessWidget {
                           ),
                         ),
                         child: const Text(
-                          "  Registrer  ",
+                          "  Register  ",
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+
+                      // ElevatedButton(
+                      //   onPressed: () {},
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor: const Color(0xFF5E8CFF),
+                      //     padding: const EdgeInsets.symmetric(
+                      //       horizontal: 22,
+                      //       vertical: 14, //register
+                      //     ),
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //     ),
+                      //   ),
+                      //   child: const Text(
+                      //     "  Registrer  ",
+                      //     style: TextStyle(color: Colors.white),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],

@@ -1,3 +1,4 @@
+import 'package:app_prueba_flutter/VISTA/home_page.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -128,6 +129,12 @@ class Login extends StatelessWidget {
                           ),
                           onPressed: () {
                             // Acción login
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
                           },
                           child: const Text(
                             "Login",

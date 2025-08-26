@@ -1,5 +1,8 @@
 import 'package:app_prueba_flutter/VISTA/help.dart';
 import 'package:app_prueba_flutter/VISTA/library.dart';
+import 'package:app_prueba_flutter/VISTA/option.dart';
+import 'package:app_prueba_flutter/VISTA/profile.dart';
+import 'package:app_prueba_flutter/VISTA/register.dart';
 import 'package:app_prueba_flutter/VISTA/settings.dart';
 import 'package:app_prueba_flutter/VISTA/terms_condition.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +19,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int selectIndex = 0;
 
-  final List<Widget> screens = const [GamesHomePage(), Library()];
+  final List<Widget> screens = const [GamesHomePage(), Library(), Profile()];
 
   void onItemTap(int index) {
     setState(() {
@@ -96,8 +99,7 @@ class HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               onTap: () {
-                Navigator.pop(context);
-                onItemTap(2);
+                navigateTo(context, const Option());
               },
             ),
           ],

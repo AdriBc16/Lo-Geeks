@@ -1,8 +1,8 @@
 import 'package:app_prueba_flutter/VISTA/login.dart';
 import 'package:app_prueba_flutter/VISTA/option.dart';
-import 'package:app_prueba_flutter/VISTA/registrer.dart';
+import 'package:app_prueba_flutter/VISTA/register.dart';
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'VISTA/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +18,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: const Option());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const HomePage(),
+    );
   }
 }

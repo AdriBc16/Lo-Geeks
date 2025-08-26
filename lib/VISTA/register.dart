@@ -1,7 +1,8 @@
+import 'package:app_prueba_flutter/VISTA/home_page.dart';
 import 'package:flutter/material.dart';
 
-class Registrer extends StatelessWidget {
-  const Registrer({super.key});
+class Register extends StatelessWidget {
+  const Register({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class Registrer extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Text(
-                          "Registrer",
+                          "Register",
                           style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
@@ -161,7 +162,14 @@ class Registrer extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          },
                           child: const Text(
                             "Go",
                             style: TextStyle(color: Colors.white, fontSize: 18),
