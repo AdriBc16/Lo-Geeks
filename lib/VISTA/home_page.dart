@@ -1,5 +1,7 @@
 import 'package:app_prueba_flutter/VISTA/help.dart';
 import 'package:app_prueba_flutter/VISTA/library.dart';
+import 'package:app_prueba_flutter/VISTA/login.dart';
+import 'package:app_prueba_flutter/VISTA/option.dart';
 import 'package:app_prueba_flutter/VISTA/settings.dart';
 import 'package:app_prueba_flutter/VISTA/terms_condition.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,12 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int selectIndex = 0;
 
-  final List<Widget> screens = const [GamesHomePage(), Library()];
+  final List<Widget> screens = const [
+    GamesHomePage(),
+    Library(),
+    Login(),
+    Option(),
+  ];
 
   void onItemTap(int index) {
     setState(() {
@@ -70,7 +77,7 @@ class HomePageState extends State<HomePage> {
             ListTile(
               leading: const Icon(Icons.description, color: Colors.white),
               title: const Text(
-                "Terms and conditions",
+                "Terminos y condiciones",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               onTap: () {
@@ -81,7 +88,7 @@ class HomePageState extends State<HomePage> {
             ListTile(
               leading: const Icon(Icons.help, color: Colors.white),
               title: const Text(
-                "Help",
+                "Ayuda",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               onTap: () {
@@ -92,12 +99,12 @@ class HomePageState extends State<HomePage> {
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.white),
               title: const Text(
-                "Log out",
+                "Cerrar sesion",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               onTap: () {
                 Navigator.pop(context);
-                onItemTap(2);
+                onItemTap(3);
               },
             ),
           ],
@@ -113,9 +120,9 @@ class HomePageState extends State<HomePage> {
         selectedItemColor: const Color(0xFFFF5C8D),
         unselectedItemColor: const Color(0xFF97A5EC),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Library'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inico'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Biblioteca'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ],
       ),
     );
