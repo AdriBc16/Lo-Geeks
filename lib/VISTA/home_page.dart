@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'games_home_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String nombreUsuario;
+  const HomePage({super.key, required this.nombreUsuario});
 
   @override
   State<HomePage> createState() => HomePageState();
@@ -17,8 +18,17 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int selectIndex = 0;
+  late final List<Widget> screens;
 
-  final List<Widget> screens = const [GamesHomePage(), Library(), Profile()];
+  @override
+  void initState() {
+    super.initState();
+    screens = [
+      const GamesHomePage(),
+      const Library(),
+      Profile(nombreUsuario: widget.nombreUsuario),
+    ];
+  }
 
   void onItemTap(int index) {
     setState(() {
@@ -36,7 +46,7 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Nombre de la App',
+          'LoGeeks',
           style: TextStyle(color: Color(0xFF97A5EC)),
         ),
         backgroundColor: const Color(0xFF141F25),

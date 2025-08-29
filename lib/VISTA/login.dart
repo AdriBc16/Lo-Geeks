@@ -52,21 +52,36 @@ class _LoginState extends State<Login> {
       _isLoading = true;
     });
 
+    // try {
+    //   await _apiService.login(
+    //     _usernameController.text,
+    //     _passwordController.text,
+    //   );
     try {
-      await _apiService.login(
+      final response = await _apiService.login(
         _usernameController.text,
         _passwordController.text,
       );
 
+      // Supongamos que la respuesta incluye el nombre del usuario
+      final String nombreUsuario =
+          response['nombre'] ?? _usernameController.text;
+
       // Si el login es exitoso, navega a la HomePage con una transición suave
+      // Navigator.pushReplacement(
+      //   context,
+      //   PageRouteBuilder(
+      //     pageBuilder: (_, __, ___) => const HomePage(),
+      //     transitionsBuilder: (_, animation, __, child) {
+      //       return FadeTransition(opacity: animation, child: child);
+      //     },
+      //     transitionDuration: const Duration(milliseconds: 700),
+      //   ),
+      // );
       Navigator.pushReplacement(
         context,
-        PageRouteBuilder(
-          pageBuilder: (_, __, ___) => const HomePage(),
-          transitionsBuilder: (_, animation, __, child) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-          transitionDuration: const Duration(milliseconds: 700),
+        MaterialPageRoute(
+          builder: (context) => HomePage(nombreUsuario: nombreUsuario),
         ),
       );
     } catch (e) {

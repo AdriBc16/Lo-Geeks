@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  final String nombreUsuario;
+  const Profile({super.key, required this.nombreUsuario});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +27,8 @@ class Profile extends StatelessWidget {
             const SizedBox(height: 40),
 
             // Nombre de usuario
-            const Text(
-              "NombreUsuario",
+            Text(
+              nombreUsuario,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,

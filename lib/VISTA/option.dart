@@ -105,23 +105,23 @@ class Option extends StatelessWidget {
                         ),
                       ),
 
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF5E8CFF),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 22,
-                            vertical: 14, //register
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: const Text(
-                          "  Registrer  ",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                      // ElevatedButton(
+                      //   onPressed: () {},
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor: const Color(0xFF5E8CFF),
+                      //     padding: const EdgeInsets.symmetric(
+                      //       horizontal: 22,
+                      //       vertical: 14, //register
+                      //     ),
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //     ),
+                      //   ),
+                      //   child: const Text(
+                      //     "  Registrer  ",
+                      //     style: TextStyle(color: Colors.white),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
