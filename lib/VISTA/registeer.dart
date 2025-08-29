@@ -30,6 +30,7 @@ class _RegisterState extends State<Register> {
   static const Color iconColor = Color(0xFF97A5EC);
 
   Future<void> _register() async {
+    // Si el formulario no es válido, activa la animación de "shake"
     if (!_formKey.currentState!.validate()) {
       _formKey.currentState?.widget.animate().shakeX(
         amount: 8,
@@ -58,6 +59,7 @@ class _RegisterState extends State<Register> {
         ),
       );
 
+      // Navega a la pantalla de login y elimina la de registro del historial
       Navigator.of(
         context,
       ).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
@@ -68,6 +70,7 @@ class _RegisterState extends State<Register> {
           backgroundColor: Colors.redAccent,
         ),
       );
+      // También aplica "shake" si la API devuelve un error
       _formKey.currentState?.widget.animate().shakeX(
         amount: 8,
         duration: 400.ms,
@@ -83,6 +86,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
+      // Usamos un AppBar para tener un botón de "atrás" automático
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -91,112 +95,103 @@ class _RegisterState extends State<Register> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Stack(
-        children: [
-          // Imagen de fondo con opacidad (tomada del segundo código)
-          Opacity(
-            opacity: 0.1,
-            child: Image.asset(
-              "assets/images/background.png",
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-          ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Título con animación
+                const Text(
+                      "Crear Cuenta",
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.5,
+                      ),
+                    )
+                    .animate()
+                    .fadeIn(duration: 600.ms)
+                    .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
 
-          Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                          "Crear Cuenta",
-                          style: TextStyle(
-                            color: textColor,
-                            fontSize: 34,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.5,
-                          ),
-                        )
-                        .animate()
-                        .fadeIn(duration: 600.ms)
-                        .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
+                const SizedBox(height: 10),
 
-                    const SizedBox(height: 10),
+                const Text(
+                      "Únete a la comunidad de GeekPlayground.",
+                      style: TextStyle(color: hintColor, fontSize: 16),
+                    )
+                    .animate(delay: 200.ms)
+                    .fadeIn(duration: 600.ms)
+                    .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
 
-                    const Text(
-                          "Únete a la comunidad de GeekPlayground.",
-                          style: TextStyle(color: hintColor, fontSize: 16),
-                        )
-                        .animate(delay: 200.ms)
-                        .fadeIn(duration: 600.ms)
-                        .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
+                const SizedBox(height: 40),
 
-                    const SizedBox(height: 40),
-
-                    _buildAnimatedTextField(
-                      controller: _usernameController,
-                      hint: "Usuario",
-                      icon: Icons.person_outline,
-                      delay: 400.ms,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Por favor, ingresa un nombre de usuario';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-
-                    _buildAnimatedTextField(
-                      controller: _emailController,
-                      hint: "Email",
-                      icon: Icons.email_outlined,
-                      delay: 600.ms,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value == null ||
-                            !value.contains('@') ||
-                            !value.contains('.')) {
-                          return 'Por favor, ingresa un email válido';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-
-                    _buildAnimatedTextField(
-                      controller: _passwordController,
-                      hint: "Contraseña",
-                      icon: Icons.lock_outline,
-                      delay: 800.ms,
-                      isPassword: true,
-                      validator: (value) {
-                        if (value == null || value.length < 4) {
-                          return 'La contraseña debe tener al menos 4 caracteres';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 40),
-
-                    _buildRegisterButton()
-                        .animate(delay: 1000.ms)
-                        .fadeIn(duration: 600.ms)
-                        .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
-                  ],
+                // Campo de Usuario
+                _buildAnimatedTextField(
+                  controller: _usernameController,
+                  hint: "Usuario",
+                  icon: Icons.person_outline,
+                  delay: 400.ms,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor, ingresa un nombre de usuario';
+                    }
+                    return null;
+                  },
                 ),
-              ),
+                const SizedBox(height: 20),
+
+                // Campo de Email
+                _buildAnimatedTextField(
+                  controller: _emailController,
+                  hint: "Email",
+                  icon: Icons.email_outlined,
+                  delay: 600.ms,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null ||
+                        !value.contains('@') ||
+                        !value.contains('.')) {
+                      return 'Por favor, ingresa un email válido';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                // Campo de Contraseña
+                _buildAnimatedTextField(
+                  controller: _passwordController,
+                  hint: "Contraseña",
+                  icon: Icons.lock_outline,
+                  delay: 800.ms,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value == null || value.length < 4) {
+                      return 'La contraseña debe tener al menos 4 caracteres';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 40),
+
+                // Botón de Registro
+                _buildRegisterButton()
+                    .animate(delay: 1000.ms)
+                    .fadeIn(duration: 600.ms)
+                    .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 
+  // Widget reutilizable y animado para los campos de texto
   Widget _buildAnimatedTextField({
     required TextEditingController controller,
     required String hint,
@@ -230,6 +225,7 @@ class _RegisterState extends State<Register> {
         .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
   }
 
+  // Widget para el botón de registro con estado de carga
   Widget _buildRegisterButton() {
     return SizedBox(
       width: double.infinity,
