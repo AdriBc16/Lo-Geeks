@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'game1.dart'; // 👈 importamos la pantalla del Juego 1
 
-class GamesHomePage extends StatelessWidget {
-  const GamesHomePage({super.key});
+class GamesHome extends StatelessWidget {
+  const GamesHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,55 +14,45 @@ class GamesHomePage extends StatelessWidget {
             height: double.infinity,
             color: const Color(0xFF141F25),
           ),
-
-          Opacity(
-            opacity: 0.1,
-            child: Image.asset(
-              'assets/images/background.png',
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-          ),
-
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              child: const _Content(),
+              child: Column(
+                children: [
+                  const SizedBox(height: 8),
+                  const _SearchBar(),
+                  const SizedBox(height: 20),
+
+                  // Grilla con los juegos
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      childAspectRatio: 0.95,
+                      children: [
+                        // Botón de Juego 1
+                        GameCard(
+                          title: 'Juego 1',
+                          color: const Color(0xFF6F67CC),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Game1(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _Content extends StatelessWidget {
-  const _Content();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 8),
-        const _SearchBar(),
-        const SizedBox(height: 20),
-        // Grilla 2x2
-        Expanded(
-          child: GridView.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            childAspectRatio: 0.95,
-            children: const [
-              GameCard(title: 'Juego 1', color: Color(0xFF6F67CC)),
-              GameCard(title: 'Juego 2', color: Color(0xFF424690)),
-              GameCard(title: 'Juego 3', color: Color(0xFF97A5EC)),
-              GameCard(title: 'Juego 4', color: Color(0xFFE398AD)),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
@@ -120,7 +111,6 @@ class GameCard extends StatelessWidget {
               ],
             ),
           ),
-
           Positioned(
             left: 12,
             right: 12,

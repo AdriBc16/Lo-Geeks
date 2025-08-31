@@ -24,7 +24,7 @@ class HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     screens = [
-      const GamesHomePage(),
+      const GamesHome(),
       const Library(),
       Profile(nombreUsuario: widget.nombreUsuario),
     ];

@@ -1,5 +1,6 @@
 import 'package:app_prueba_flutter/VISTA/login.dart';
 import 'package:app_prueba_flutter/VISTA/option.dart';
+import 'package:app_prueba_flutter/VISTA/game1.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 

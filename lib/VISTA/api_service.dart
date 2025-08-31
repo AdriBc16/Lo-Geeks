@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   final String baseUrl =
-      "http://localhost/api"; //Para usar en android cambiar localhost por 10.0.2.2, nose si cambia para IOS
+      "http://172.16.72.235/api"; //Para usar en android cambiar localhost por 10.0.2.2, nose si cambia para IOS
 
   Future<Map<String, dynamic>> login(String username, String password) async {
     final response = await http.post(
