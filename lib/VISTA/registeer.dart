@@ -20,6 +20,9 @@ class _RegisterState extends State<Register> {
 
   bool _isLoading = false;
 
+  // Control de visibilidad de la contraseña
+  bool _obscurePassword = true;
+
   // Paleta de colores consistente con el Login
   static const Color primaryBackgroundColor = Color(0xFF141F25);
   static const Color accentColor = Color(
@@ -203,7 +206,8 @@ class _RegisterState extends State<Register> {
   }) {
     return TextFormField(
           controller: controller,
-          obscureText: isPassword,
+          obscureText: isPassword ? _obscurePassword : false,
+          // obscureText: isPassword,
           keyboardType: keyboardType,
           style: const TextStyle(color: textColor),
           decoration: InputDecoration(
@@ -217,6 +221,21 @@ class _RegisterState extends State<Register> {
               borderSide: BorderSide.none,
             ),
             errorStyle: const TextStyle(color: Colors.redAccent),
+            suffixIcon: isPassword
+                ? IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: iconColor,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  )
+                : null,
           ),
           validator: validator,
         )

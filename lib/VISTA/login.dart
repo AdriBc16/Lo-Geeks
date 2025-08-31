@@ -20,6 +20,9 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
+  // Control de visibilidad de la contraseña
+  bool _obscurePassword = true;
+
   // Paleta de colores consistente
   static const Color primaryBackgroundColor = Color(
     0xFF141F25,
@@ -250,7 +253,8 @@ class _LoginState extends State<Login> {
   }) {
     return TextFormField(
           controller: controller,
-          obscureText: isPassword,
+          obscureText: isPassword ? _obscurePassword : false,
+          // obscureText: isPassword,
           style: const TextStyle(color: textColor),
           decoration: InputDecoration(
             prefixIcon: Icon(icon, color: iconColor),
@@ -263,6 +267,21 @@ class _LoginState extends State<Login> {
               borderSide: BorderSide.none,
             ),
             errorStyle: const TextStyle(color: Colors.redAccent),
+            suffixIcon: isPassword
+                ? IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: iconColor,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  )
+                : null,
           ),
           validator: validator,
           onFieldSubmitted: onSubmitted,
