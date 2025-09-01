@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'game1.dart'; // 👈 importamos la pantalla del Juego 1
+import 'game2.dart';
 
 class GamesHome extends StatelessWidget {
   const GamesHome({super.key});
@@ -40,6 +41,18 @@ class GamesHome extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const Game1(),
+                              ),
+                            );
+                          },
+                        ),
+                        GameCard(
+                          title: 'Juego 2',
+                          color: const Color.fromARGB(255, 103, 204, 143),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Game2(),
                               ),
                             );
                           },
