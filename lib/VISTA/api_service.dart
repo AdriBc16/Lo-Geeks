@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 class ApiService {
   final String baseUrl =
       "http://localhost/api"; //Para usar en android cambiar localhost por 10.0.2.2, nose si cambia para IOS
-  // casa 192.168.100.38, u 172.16.72.235
+  // casa 192.168.100.38, u 172.16.72.235 // adri 172.16.74.231
+
   Future<Map<String, dynamic>> login(String username, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/index.php?resource=login'),
@@ -52,6 +53,30 @@ class ApiService {
       throw Exception(
         responseBody['message'] ?? 'Error al registrar el usuario.',
       );
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> fetchQuestions(String tipo) async {
+    final response = await http.get(
+      Uri.parse("$baseUrl/endpoints/questions.php?type=$tipo"),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List;
+      return data.map((q) {
+        return {
+          "id": int.tryParse(q["id"].toString()) ?? 0,
+          "prompt": q["prompt"] ?? "",
+          "option1": q["option1"] ?? "",
+          "option2": q["option2"] ?? "",
+          "option3": q["option3"] ?? "",
+          "option4": q["option4"] ?? "",
+          "correctIndex": int.tryParse(q["correctIndex"].toString()) ?? 0,
+        };
+      }).toList();
+    } else {
+      print("Error fetchQuestions: ${response.statusCode} ${response.body}");
+      throw Exception("Error al cargar preguntas");
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'db_service.dart';
+import 'api_service.dart';
 
 class Game2 extends StatefulWidget {
   const Game2({super.key});
@@ -11,6 +11,7 @@ class Game2 extends StatefulWidget {
 class _Game2State extends State<Game2> {
   List<Map<String, dynamic>> _questions = [];
   bool _loading = true;
+  final ApiService _apiService = ApiService();
 
   int _current = 0;
   int _selected = -1;
@@ -27,7 +28,29 @@ class _Game2State extends State<Game2> {
 
   Future<void> _loadQuestions() async {
     try {
-      final qs = await DBService.fetchQuestions("theory");
+      final qs = await _apiService.fetchQuestions("theory");
+      // Reordenar opciones para cada pregunta
+      for (var q in qs) {
+        final options = [
+          q["option1"],
+          q["option2"],
+          q["option3"],
+          q["option4"],
+        ];
+
+        final correctIndex = q["correctIndex"] as int;
+        final correctAnswer = options[correctIndex];
+
+        // Mezclar opciones
+        options.shuffle();
+
+        // Actualizar pregunta con nuevo orden
+        q["option1"] = options[0];
+        q["option2"] = options[1];
+        q["option3"] = options[2];
+        q["option4"] = options[3];
+        q["correctIndex"] = options.indexOf(correctAnswer);
+      }
       setState(() {
         _questions = qs;
         _loading = false;
@@ -55,39 +78,39 @@ class _Game2State extends State<Game2> {
       }
     });
 
-    if (!_isCorrect) {
-      // Llamamos a la IA para explicar
-      final explanation = await DBService.getExplanation(
-        prompt: _questions[_current]["prompt"],
-        selectedOption: [
-          _questions[_current]["option1"],
-          _questions[_current]["option2"],
-          _questions[_current]["option3"],
-          _questions[_current]["option4"],
-        ][_selected],
-        correctOption: [
-          _questions[_current]["option1"],
-          _questions[_current]["option2"],
-          _questions[_current]["option3"],
-          _questions[_current]["option4"],
-        ][correct],
-      );
+    // if (!_isCorrect) {
+    // Llamamos a la IA para explicar
+    // final explanation = await ApiService.getExplanation(
+    //   prompt: _questions[_current]["prompt"],
+    //   selectedOption: [
+    //     _questions[_current]["option1"],
+    //     _questions[_current]["option2"],
+    //     _questions[_current]["option3"],
+    //     _questions[_current]["option4"],
+    //   ][_selected],
+    //   correctOption: [
+    //     _questions[_current]["option1"],
+    //     _questions[_current]["option2"],
+    //     _questions[_current]["option3"],
+    //     _questions[_current]["option4"],
+    //   ][correct],
+    // );
 
-      // Mostrar explicación en un dialog
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text("Explicación"),
-          content: Text(explanation),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Cerrar"),
-            ),
-          ],
-        ),
-      );
-    }
+    //   // Mostrar explicación en un dialog
+    //   showDialog(
+    //     context: context,
+    //     builder: (_) => AlertDialog(
+    //       title: const Text("Explicación"),
+    //       content: Text(explanation),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () => Navigator.of(context).pop(),
+    //           child: const Text("Cerrar"),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
   }
 
   void _onContinue() {
