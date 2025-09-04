@@ -111,16 +111,6 @@ class _LibraryState extends State<Library> {
             color: const Color(0xFF141F25),
           ),
 
-          Opacity(
-            opacity: 0.1,
-            child: Image.asset(
-              'assets/images/background.png',
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-          ),
-
           // Contenido principal
           SafeArea(
             child: Padding(
